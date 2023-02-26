@@ -13,7 +13,7 @@ def round_to_multiple(number, multiple, up=False, down=False):
         v = math.floor(number / multiple)
     else:
         v = round(number / multiple)
-    result = multiple * round(number / multiple)
+    result = multiple * v
     if isinstance(number, int):
         return int(result)
     else:
