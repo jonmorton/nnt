@@ -52,10 +52,14 @@ class TensorboardWriter(MetricWriter):
 
 
 class WandbWriter(MetricWriter):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
+        """
+        Log scalars and histograms to wandb.
+
+        Must call wandb.init first, and optionally wandb.watch.
+        """
         import wandb
 
-        wandb.init(*args, **kwargs)
         self.wandb = wandb
 
     def write_scalar(self, step, name, value):
