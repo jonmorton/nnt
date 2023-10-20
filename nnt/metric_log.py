@@ -45,7 +45,7 @@ class TensorboardWriter(MetricWriter):
         self._writer.add_scalar(name, value, iter)
 
     def write_histogram(self, iter, name, hist_tensor):
-        self._writer.add_histogram(name, hist_tensor, iter)
+        self._writer.add_histogram(name, hist_tensor.flatten().to(torch.float), iter)
 
     def close(self):
         self._writer.close()
@@ -62,7 +62,7 @@ class WandbWriter(MetricWriter):
         self.wandb.log({name: value}, step)
 
     def write_histogram(self, step, name, hist_tensor):
-        hist = self.wandb.Histogram(hist_tensor.flatten().tolist())
+        hist = self.wandb.Histogram(hist_tensor.flatten().numpy())
         self.wandb.log({name: hist}, step)
 
 
